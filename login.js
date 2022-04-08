@@ -4,6 +4,11 @@ import { SafeAreaView, StyleSheet, TextInput, Button } from "react-native";
 const UselessTextInput = () => {
   const [email, onChangeEmail] = React.useState(null);
   const [pass, onChangePass] = React.useState(null);
+  const func = () => {
+    console.log(email + ' ' + pass)
+    onChangeEmail(null)
+    onChangePass(null)
+  }
 
   return (
     <SafeAreaView>
@@ -22,7 +27,7 @@ const UselessTextInput = () => {
       <Button
         title="Login"
         
-        onPress={() => console.log(email + ' ' + pass)}
+        onPress={func}
       />
     </SafeAreaView>
   );
