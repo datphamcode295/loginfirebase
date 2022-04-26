@@ -1,8 +1,10 @@
 import React from "react";
 import { SafeAreaView, StyleSheet, TextInput, Button } from "react-native";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from './firebase-config';
+
+//https://www.youtube.com/watch?v=9pq9yR9nEqo
 
 const UselessTextInput = () => {
   const [email, onChangeEmail] = React.useState("");
@@ -10,6 +12,10 @@ const UselessTextInput = () => {
 
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
+
+
+
+
 
   const handleSignIn = () => {
     signInWithEmailAndPassword(auth, email, pass)
@@ -43,6 +49,18 @@ const UselessTextInput = () => {
     handleSignIn()
   }
 
+  const handleReset = ()=>{
+    sendPasswordResetEmail(auth,"vandatpro2000@gmail.com")
+    .then((respone) => {
+      
+      console.log(respone)
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // ..
+    });
+  }
   return (
     <SafeAreaView>
       <TextInput
@@ -66,6 +84,11 @@ const UselessTextInput = () => {
         title="Create Account"
         onPress={handleCreateAccount}
       />
+      <Button
+        title="Reset password"
+        onPress={handleReset}
+      />
+
     </SafeAreaView>
   );
 };
